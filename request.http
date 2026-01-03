@@ -1,16 +1,16 @@
 ###
 
-GET https://localhost:3000/api/v1/trending/movies
+GET http://localhost:3000/api/v1/trending/movies
 
 ###
 
-POST https://localhost:3000/api/v1/trending/update
+POST http://localhost:3000/api/v1/trending/update
 Content-Type: application/json
 
 {
     "searchTerm": "Superman",
     "movie": {
         "id": "557",
-        "poster_path": "/gh4cZbhZxyTbgxQPxD0dOudNPTn.jpg",
+        "poster_path": "/gh4cZbhZxyTbgxQPxD0dOudNPTn.jpg"
     }
 }
