@@ -6,6 +6,7 @@ import trendingRouter from './routes/trending.route.js';
 // Initialize express app
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || "0.0.0.0";
 
 // Middlewares
 app.use(express.json());
@@ -15,9 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/v1/trending', trendingRouter);
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
     connectDB();
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT} and host ${HOST}`);
 });
 
 export default app;
