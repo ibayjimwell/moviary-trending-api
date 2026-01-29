@@ -1,86 +1,106 @@
-# 🎬 Moviary
+# 🔥 Moviary Trending API
 
-**Your Personal Movie Diary — Anytime, Anywhere**
+**Backend service that powers trending movie logic for Moviary**
 
-![Moviary App](https://raw.githubusercontent.com/ibayjimwell/moviary/refs/heads/main/public/app-image.png)
+This is a lightweight backend API responsible for tracking movie search activity and determining **trending movies** for the Moviary web app.
 
-🌐 **Live Demo:** [https://moviary.vercel.app/](https://moviary.vercel.app/)
-🔥 **Trending API (Custom Backend):** [https://github.com/ibayjimwell/moviary-trending-api](https://github.com/ibayjimwell/moviary-trending-api)
-
----
-
-## 📖 Overview
-
-**Moviary** is a modern movie browsing web app where users can:
-
-* Search for movies
-* Explore popular titles
-* Discover trending films
-
-It connects to **The Movie Database (TMDB) API** and a custom **Trending Handler API** to deliver real-time movie data in a clean and fast interface.
+It acts as a custom popularity engine on top of movie data.
 
 ---
 
-## 🚀 Key Features
+## 🌐 Used By
 
-### 🔍 Movie Search
+🎬 **Frontend App (Moviary):**
+[https://moviary.vercel.app/](https://moviary.vercel.app/)
 
-Quickly search for any movie by title and get instant results.
-
-### 📈 Trending Movies
-
-Displays trending movies using a custom backend API that tracks popularity.
-
-### ⭐ Popular Movies
-
-Browse currently popular movies based on live TMDB data.
-
-### ⚡ Fast & Responsive
-
-Optimized UI for smooth browsing and quick API responses.
-
-### 🎨 Clean UI
-
-Modern layout built for easy navigation and a great user experience.
+🖥 Main Movie App Repository:
+[https://github.com/ibayjimwell/moviary](https://github.com/ibayjimwell/moviary)
 
 ---
 
-## ⚙️ How Moviary Works
+## 🚀 Tech Stack
 
-Moviary fetches movie data from:
+![Express](https://img.shields.io/badge/express-%23404d59.svg?style=for-the-badge\&logo=express\&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge\&logo=mongodb\&logoColor=white)
 
-* 🎥 **TMDB (The Movie Database) API** — movie details, posters, popularity
-* 🔥 **Moviary Trending Handler API** — custom backend to manage trending logic
-
-TMDB is a free movie database API. Learn more at:
-👉 [https://www.themoviedb.org/](https://www.themoviedb.org/)
+* **Express.js** — Backend server
+* **MongoDB** — Stores movie search counts and trending data
 
 ---
 
-## 🧠 Use Cases
+## 📌 Base URL
 
-* Discover movies you’ve never watched
-* Find trending titles people are currently into
-* Explore popular films before movie night
-* Quickly search details about any movie
-
----
-
-## 💻 Tech Stack
-
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge\&logo=react\&logoColor=%2361DAFB)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge\&logo=tailwind-css\&logoColor=white)
-![TMDB API](https://img.shields.io/badge/API-TMDB-green?style=for-the-badge)
+```
+/api/v1/trending
+```
 
 ---
 
-## 🛠 Running Locally
+## 📚 API Routes
+
+| Method | Endpoint  | Description                     |
+| ------ | --------- | ------------------------------- |
+| GET    | `/movies` | Get trending movies             |
+| POST   | `/update` | Update search count for a movie |
+
+---
+
+## 🧠 How It Works
+
+1. When users search for a movie in Moviary, the frontend calls:
+
+   ```
+   POST /api/v1/trending/update
+   ```
+
+   This increments the movie's search count in MongoDB.
+
+2. The API calculates trending movies based on **search frequency**.
+
+3. The frontend fetches trending movies using:
+
+   ```
+   GET /api/v1/trending/movies
+   ```
+
+This creates a dynamic system where trending movies reflect real user interest.
+
+---
+
+## 🧪 Example Requests
+
+### 📈 Update Search Count
+
+```http
+POST /api/v1/trending/update
+Content-Type: application/json
+```
+
+```json
+{
+  "movieId": "550",
+  "title": "Fight Club",
+  "posterPath": "/a26cQPRhJPX6GbWfQbvZdrrp9j9.jpg"
+}
+```
+
+---
+
+### 🔥 Get Trending Movies
+
+```http
+GET /api/v1/trending/movies
+```
+
+---
+
+## ⚙️ Running Locally
 
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/ibayjimwell/moviary.git
-cd moviary
+git clone https://github.com/ibayjimwell/moviary-trending-api.git
+cd moviary-trending-api
 ```
 
 ### 2️⃣ Install dependencies
@@ -94,36 +114,30 @@ npm install
 Create a `.env` file:
 
 ```
-VITE_TMDB_API_KEY=your_tmdb_api_key
-VITE_TRENDING_API_URL=your_trending_api_url
+PORT=4000
+MONGODB_URI=your_mongodb_connection_string
 ```
 
-### 4️⃣ Start the development server
+### 4️⃣ Start the server
 
 ```bash
 npm run dev
 ```
 
----
+Server runs at:
 
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a Pull Request
+```
+http://localhost:4000
+```
 
 ---
 
-## 📌 Future Improvements
+## 🔮 Future Improvements
 
-* User watchlist feature
-* Movie rating system
-* Genre filters
-* Movie detail page
-* Authentication system
+* Time-based trending (daily/weekly)
+* Genre-based trending
+* Rate limiting for abuse prevention
+* Caching for faster responses
 
 ---
 
